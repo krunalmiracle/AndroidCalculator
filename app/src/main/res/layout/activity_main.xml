@@ -30,12 +30,17 @@
             <EditText
                 android:id="@+id/txt_display"
                 android:layout_width="match_parent"
-                android:layout_height="143dp"
+                android:layout_height="145dp"
                 android:ems="10"
                 android:focusable="auto"
                 android:focusableInTouchMode="false"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:freezesText="false"
+                android:singleLine="true"
+                android:inputType="text"
+                android:scrollHorizontally="true"
+                android:text="0"
+                android:textAlignment="textEnd"
+                tools:ignore="HardcodedText" />
 
             <Space
                 android:id="@+id/spacer_belowtext"
@@ -59,13 +64,16 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="CLEAR"/>
+                        android:onClick="ClickEventMethodButtonClear"
+                        android:text="CLEAR"
+                        tools:ignore="OnClick" />
 
                     <Button
                         android:id="@+id/button_sin"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonSine"
                         android:text="SIN" />
 
                     <Button
@@ -73,6 +81,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonCosine"
                         android:text="COS"/>
 
                     <Button
@@ -80,12 +89,14 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonTangent"
                         android:text="TAN"/>
 
                     <Button
                         android:id="@+id/button_rad_deg"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:onClick="ClickEventMethodButtonRAD_DEG"
                         android:text="RAD/DEG" />
                 </TableRow>
 
@@ -99,6 +110,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton7"
                         android:text="7"/>
 
                     <Button
@@ -106,6 +118,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton8"
                         android:text="8"/>
 
                     <Button
@@ -113,6 +126,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton9"
                         android:text="9"/>
 
                     <Button
@@ -120,6 +134,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonMultiply"
                         android:text="X"/>
                 </TableRow>
 
@@ -133,6 +148,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton4"
                         android:text="4"/>
 
                     <Button
@@ -140,6 +156,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton5"
                         android:text="5"/>
 
                     <Button
@@ -147,6 +164,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton6"
                         android:text="6"/>
 
                     <Button
@@ -154,6 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonSubtract"
                         android:text="-"/>
                 </TableRow>
 
@@ -167,6 +186,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton1"
                         android:text="1"/>
 
                     <Button
@@ -174,6 +194,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton2"
                         android:text="2"/>
 
                     <Button
@@ -181,6 +202,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButton3"
                         android:text="3"/>
 
                     <Button
@@ -188,6 +210,7 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:onClick="ClickEventMethodButtonAdd"
                         android:text="+"/>
                 </TableRow>
 
@@ -197,32 +220,40 @@
                     android:layout_weight="1">
 
                     <Button
-                        android:id="@+id/button_nil"
+                        android:id="@+id/button_Delete"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="+/−"/>
+                        android:onClick="ClickEventMethodButtonDel"
+                        android:text="Del"/>
 
                     <Button
                         android:id="@+id/button_0"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="0"/>
+                        android:onClick="ClickEventMethodButton0"
+                        android:text="0"
+                        tools:ignore="OnClick" />
+
 
                     <Button
                         android:id="@+id/button_decimal"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="."/>
+                        android:onClick="ClickEventMethodButtonDecimal"
+                        android:text="."
+                        tools:ignore="OnClick" />
 
                     <Button
                         android:id="@+id/button_equal"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text= "="/>
+                        android:onClick="ClickEventMethodButtonEqual"
+                        android:text= "="
+                        tools:ignore="OnClick" />
                 </TableRow>
             </TableLayout>
 
