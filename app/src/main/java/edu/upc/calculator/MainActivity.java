@@ -11,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Vector<String> math_list = new Vector<String>();
     protected CalculatorInterface _calc;
-    private String _text_appended = " ";
-    boolean wasLast_Press_Number = false;
+    private String _text_appended = "";
+    boolean wasLast_Press_Number = true;
     String str_a = "";
     String str_op = "";
     int a = 1;
@@ -23,15 +23,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         calculator_display_text   = (TextView) findViewById(R.id.txt_display);
         this._calc = new Calculator();
+        this.math_list.add("");
     }
 
     public void Append_Text(String Txt,boolean isCurrent_Press_Number) {
 
-        if (wasLast_Press_Number || isCurrent_Press_Number){
+        if (wasLast_Press_Number && isCurrent_Press_Number){ //Is a number and was a number
             _text_appended = _text_appended +  Txt;
             calculator_display_text.setText(_text_appended);
-                math_list.add(Txt);
-            wasLast_Press_Number = isCurrent_Press_Number;
+            String tmp = math_list.lastElement()+Txt;
+            math_list.setElementAt(tmp,math_list.indexOf(math_list.lastElement()));
+            wasLast_Press_Number = true;
+        }
+        else if(wasLast_Press_Number && !isCurrent_Press_Number) //Is a operation
+        {
+            _text_appended = _text_appended +  Txt;
+            calculator_display_text.setText(_text_appended);
+            math_list.add(Txt);
+            wasLast_Press_Number = false;
+        }
+        else if(!wasLast_Press_Number && isCurrent_Press_Number)//Is a number after a operation
+        {
+            _text_appended = _text_appended +  Txt;
+            calculator_display_text.setText(_text_appended);
+            math_list.add(Txt);
+            wasLast_Press_Number = true;
         }
     }
 
@@ -42,29 +58,27 @@ public class MainActivity extends AppCompatActivity {
     public void ClickEventMethodButtonEqual(View view) {
         //SOLVE THE EQUATION
         //Append_Text("Solution",false);
-        String text_local = math_list.toString() +" Test";
-        calculator_display_text.setText(text_local);
-        _text_appended = "";
+        _text_appended = "Error";
         if(wasLast_Press_Number){
-            //Size is correct of the list a operand b
-            text_local = "Solution";
-            calculator_display_text.setText(text_local);
+            //Size is correct of the list a operand
             if(this._calc.Parse_list_to_operation(this.math_list))
             {
                 double result = this._calc.getResult();
+                this._text_appended = String.valueOf(result);
+                calculator_display_text.setText(this._text_appended);
             }
             else {
-                text_local = "Error";
-                calculator_display_text.setText(text_local);
+                _text_appended = "Result Not Found";
+                calculator_display_text.setText(_text_appended);
             }
         }
         else
-        {
-            text_local = "Error";
-            calculator_display_text.setText(text_local);
+        {   _text_appended = "Last Press Not Number";
+            calculator_display_text.setText(_text_appended);
         }
         math_list.removeAllElements();
-        boolean wasLast_Press_Number = false;
+        _text_appended = "";
+        boolean wasLast_Press_Number = true;
     }
     public void ClickEventMethodButtonDecimal(View view) {
         //FOR FUTURE IMPLEMENTATION
