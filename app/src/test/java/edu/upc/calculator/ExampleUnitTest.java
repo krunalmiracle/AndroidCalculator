@@ -14,20 +14,18 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     private Calculator calculator_test_object;
-    private Vector<String> test_list = new Vector<String>();
-    private boolean test;
+    private Vector<ExpressionInterface> expressions_vector;
+    private boolean _test;
     @Before
     public void setUp(){
         calculator_test_object = new Calculator();
-        test_list.add("2");
-        test_list.add("+");
-        test_list.add("2");
-        test = calculator_test_object.Parse_List_To_Result(test_list);
+
+        _test = calculator_test_object.ExpressionVector_To_Result(expressions_vector,true);
     }
     @Test
     public void vector_str_to_num_result(){
-        if(test)
-            assertEquals(4,calculator_test_object.getResult(),0);
+        if(_test)
+           assertEquals(4,calculator_test_object.get_Result(),0);
     }
 
 }

@@ -97,7 +97,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:onClick="ClickEventMethodButtonRAD_DEG"
-                        android:text="RAD/DEG" />
+                        android:background="#00FFFF"
+                        android:text="RAD" />
                 </TableRow>
 
                 <TableRow
@@ -242,8 +243,8 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:onClick="ClickEventMethodButtonDecimal"
-                        android:text="."
+                        android:onClick="ClickEventMethodButtonDivide"
+                        android:text="/"
                         tools:ignore="OnClick" />
 
                     <Button

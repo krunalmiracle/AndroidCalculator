@@ -4,70 +4,30 @@ import java.util.Vector;
 
 public class Calculator implements CalculatorInterface {
     private double current_result = 0;
-    private boolean radians = true;
-    Calculator()
-    {
-        //Empty Constructor
-    }
-
+    private boolean _radians = true;
+    Calculator(){ }
+    //FOR LATER USE!! REMEMBER TO REMOVE!!
+    /*else if(this._expressions_vector.get(last_Element_index).get_ExpressionLevel() == ExpressionLevel.Primary &&(tmp_value=="+" ||tmp_value =="-")){
+                        //It means we need to descend the state of the Addition and Subtraction Operator to lower Level(Nullary) and append the digit
+                        String tmp_str = this._expressions_vector.lastElement().get_Value().toString() + digit;
+                        double  tmp_double = Double.parseDouble(tmp_str);
+                        Expression tmp_expression = new Expression<Double>(tmp_double,ExpressionLevel.Nullary);
+                        this._expressions_vector.setElementAt(tmp_expression, last_Element_index);
+                    }*/
     @Override
-    public boolean Parse_List_To_Result(Vector<String> input){
-        //Divide the list
-            //Search for
-            int first_element = 0;
-            Vector<Integer> OP_INDX = new Vector<Integer>();
+    public boolean ExpressionVector_To_Result( Vector<ExpressionInterface> expressions_vector,boolean OperateInRadians){
+        this._radians = OperateInRadians;
 
-            for(int i=0;i<input.size();i++)
-            {
-                if(input.get(i).equals("+") || input.get(i).equals("-")|| input.get(i).equals("/")|| input.get(i).equals("*")) {
-                    //It means we have a operation and all the elements to the left and right are number, until next operation
-                    OP_INDX.add(i);
-                }
-            }
-            if(OP_INDX.size()==0) //We only have numbers and so the result are the same Numbers.
-            {
-                current_result = Double.parseDouble(input.lastElement());
-                return true;
-            }
-            double LHS;
-            LHS = Double.parseDouble(input.get(OP_INDX.get(0)-1));
-            double RHS;
-            for(int k = 0 ;k<OP_INDX.size();k++) //Assuming we always have multiple operand and no priority
-            {
-                //Implementing Multiple Digits
-                //We can now do expression based math!!
-                RHS = Double.parseDouble(input.get(OP_INDX.get(k)+1));
-                switch (input.get(OP_INDX.get(k)))
-                {
-                    case "+":
-                        // Addition
-                        current_result = LHS + RHS;
-                        break;
-                    case "-":
-                        // Subtraction
-                        current_result = LHS - RHS;
-                        break;
-                    case "*":
-                        // Multiplication
-                        current_result = LHS * RHS;
-                        break;
-                    case "/":
-                        // Division
-                        current_result = LHS / RHS;
-                        break;
-                    default:
-                        // We have some problem, Operand not found
-                        return false;
-                }
-                LHS = current_result;
+            //Solve all the Tertiary Expressions from RHS Nullary
 
-            }
+            //Solve all the Secondary Expressions using Nullary
+
+            //Solve all the Primary Expressions using Nullary
 
         return true;
     }
-
     @Override
-    public double getResult(){
+    public double get_Result(){
         return current_result;
     }
 }
