@@ -76,6 +76,33 @@ public class ExampleUnitTest {
         Vector<ExpressionInterface> tmp_vector = calculator_test_object.SecondaryExpressionsSolver(expressions_vector);
         _test = calculator_test_object.PrimaryExpressionsSolver(tmp_vector);
         if (_test){assertEquals(4,calculator_test_object.get_Result(),0);}
+        //Second Case -2*2
+        tmp = 2.0;
+        temp_str = "-";
+        this.expressions_vector.clear();
+        AddExpression(temp_str,ExpressionLevel.Primary);
+        AddExpression(tmp,ExpressionLevel.Nullary);
+        temp_str = "*";
+        AddExpression(temp_str,ExpressionLevel.Secondary);
+        AddExpression(tmp,ExpressionLevel.Nullary);
+        tmp_vector = calculator_test_object.SecondaryExpressionsSolver(expressions_vector);
+        _test = calculator_test_object.PrimaryExpressionsSolver(tmp_vector);
+        if (_test){assertEquals(-4,calculator_test_object.get_Result(),0);}
+        //Third Case -2*2/2
+        tmp = 2.0;
+        temp_str = "-";
+        this.expressions_vector.clear();
+        AddExpression(temp_str,ExpressionLevel.Primary);
+        AddExpression(tmp,ExpressionLevel.Nullary);
+        temp_str = "*";
+        AddExpression(temp_str,ExpressionLevel.Secondary);
+        AddExpression(tmp,ExpressionLevel.Nullary);
+        temp_str = "/";
+        AddExpression(temp_str,ExpressionLevel.Secondary);
+        AddExpression(tmp,ExpressionLevel.Nullary);
+        tmp_vector = calculator_test_object.SecondaryExpressionsSolver(expressions_vector);
+        _test = calculator_test_object.PrimaryExpressionsSolver(tmp_vector);
+        if (_test){assertEquals(-2,calculator_test_object.get_Result(),0);}
 
     }
 

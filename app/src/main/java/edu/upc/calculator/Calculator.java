@@ -142,19 +142,18 @@ public class Calculator implements CalculatorInterface {
     public Vector<ExpressionInterface> SecondaryExpressionsSolver(Vector<ExpressionInterface> ExpressionVectorTertiarySolved) {
         Vector<ExpressionInterface> SolvedSecondaryExpressions_vector = new Vector<ExpressionInterface>() ;
         int i=0;
-        while(i<ExpressionVectorTertiarySolved.size())
+        while(i<ExpressionVectorTertiarySolved.size()-1)
         {
             if(ExpressionVectorTertiarySolved.get(i).get_ExpressionLevel()==ExpressionLevel.Secondary)
             {
-                if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()==ExpressionLevel.Primary)
-                {
-                    if(ExpressionVectorTertiarySolved.get(i+2).get_ExpressionLevel()==ExpressionLevel.Nullary)
+                    if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()==ExpressionLevel.Nullary)
                     {
                         //We can directly solve as its just a number now
                         double tmp_val = 0;
                         double LHS = (Double) ExpressionVectorTertiarySolved.get(i - 1).get_Value();
-                        double RHS = (Double) ExpressionVectorTertiarySolved.get(i + 2).get_Value();
-                        switch (ExpressionVectorTertiarySolved.get(i).get_Value().toString()) {
+                        double RHS = (Double) ExpressionVectorTertiarySolved.get(i + 1).get_Value();
+                        switch (ExpressionVectorTertiarySolved.get(i).get_Value().toString())
+                        {
                             case "*":
                                 // code block
                                 tmp_val = LHS * RHS;
@@ -167,41 +166,13 @@ public class Calculator implements CalculatorInterface {
                                 return null; //Could not parse the correct Secondary Operator
                         }
                         SolvedSecondaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
-                        i++;i++;//Jumped Two Places
+                        i++;//Jumped one Places
                     }
-                    else {return null; } //After Primary Operand No number
-
-                    //We need to delete the LHS & RHS from the Tertiary Solved vector for continuous multiplication and deletion
-                }
-                else if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()==ExpressionLevel.Nullary)
-                {
-                    //We can directly solve as its just a number now
-                    double tmp_val = 0;
-                    double LHS = (Double) ExpressionVectorTertiarySolved.get(i - 1).get_Value();
-                    double RHS = (Double) ExpressionVectorTertiarySolved.get(i + 1).get_Value();
-                    switch (ExpressionVectorTertiarySolved.get(i).get_Value().toString()) {
-                        case "*":
-                            // code block
-                            tmp_val = LHS * RHS;
-                            break;
-                        case "/":
-                            // code block
-                            tmp_val = LHS / RHS;
-                            break;
-                        default:
-                            return null; //Could not parse the correct Secondary Operator
-                    }
-                    SolvedSecondaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
-                    i++;
-                }
-                else //We have bad expression
-                {
-                    return null;
-                }
             }
-            else//A primary Expression or Nullary Expression
+            else if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()!=ExpressionLevel.Secondary)//A primary Expression or Nullary Expression
             {
                 SolvedSecondaryExpressions_vector.add(ExpressionVectorTertiarySolved.get(i));
+                i++;
             }
             i++;
         }
