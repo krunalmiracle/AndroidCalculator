@@ -13,9 +13,6 @@ public class MainActivity extends AppCompatActivity {
     protected CalculatorInterface _calc;
     private String _text_appended = "";
     boolean wasLast_Press_Number = true;
-    String str_a = "";
-    String str_op = "";
-    int a = 1;
     TextView calculator_display_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +58,23 @@ public class MainActivity extends AppCompatActivity {
         _text_appended = "Error";
         if(wasLast_Press_Number){
             //Size is correct of the list a operand
-            if(this._calc.Parse_list_to_operation(this.math_list))
+            if(this._calc.Parse_List_To_Result(this.math_list))
             {
                 double result = this._calc.getResult();
                 this._text_appended = String.valueOf(result);
                 calculator_display_text.setText(this._text_appended);
             }
             else {
-                _text_appended = "Result Not Found";
+                _text_appended = "ERROR";
                 calculator_display_text.setText(_text_appended);
             }
         }
         else
-        {   _text_appended = "Last Press Not Number";
+        {   _text_appended = "ERROR";
             calculator_display_text.setText(_text_appended);
         }
-        math_list.removeAllElements();
+        this.math_list.removeAllElements();
+        this.math_list.add("");
         _text_appended = "";
         boolean wasLast_Press_Number = true;
     }

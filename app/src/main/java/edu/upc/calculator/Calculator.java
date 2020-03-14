@@ -11,52 +11,56 @@ public class Calculator implements CalculatorInterface {
     }
 
     @Override
-    public boolean Parse_list_to_operation(Vector<String> input){
+    public boolean Parse_List_To_Result(Vector<String> input){
         //Divide the list
             //Search for
             int first_element = 0;
-            Vector<Integer> operands_index = new Vector<Integer>();
+            Vector<Integer> OP_INDX = new Vector<Integer>();
 
             for(int i=0;i<input.size();i++)
             {
                 if(input.get(i).equals("+") || input.get(i).equals("-")|| input.get(i).equals("/")|| input.get(i).equals("*")) {
                     //It means we have a operation and all the elements to the left and right are number, until next operation
-                    operands_index.add(i);
+                    OP_INDX.add(i);
                 }
             }
-            if(operands_index.size()==0) //We only have number and so the result is the same
+            if(OP_INDX.size()==0) //We only have numbers and so the result are the same Numbers.
             {
                 current_result = Double.parseDouble(input.lastElement());
                 return true;
             }
-            for(int k = 0 ;k<operands_index.size();k++) //Assuming we always have 1 operand and left/right hand side
+            double LHS;
+            LHS = Double.parseDouble(input.get(OP_INDX.get(0)-1));
+            double RHS;
+            for(int k = 0 ;k<OP_INDX.size();k++) //Assuming we always have multiple operand and no priority
             {
-
-                double left_hand_side = Double.parseDouble(input.get(operands_index.get(k)-1));
-                double right_hand_side = Double.parseDouble(input.get(operands_index.get(k)+1));
+                //Implementing Multiple Digits
                 //We can now do expression based math!!
-                switch (input.get(operands_index.get(k)))
+                RHS = Double.parseDouble(input.get(OP_INDX.get(k)+1));
+                switch (input.get(OP_INDX.get(k)))
                 {
                     case "+":
                         // Addition
-                        current_result = left_hand_side + right_hand_side;
+                        current_result = LHS + RHS;
                         break;
                     case "-":
                         // Subtraction
-                        current_result = left_hand_side - right_hand_side;
+                        current_result = LHS - RHS;
                         break;
                     case "*":
                         // Multiplication
-                        current_result = left_hand_side * right_hand_side;
+                        current_result = LHS * RHS;
                         break;
                     case "/":
                         // Division
-                        current_result = left_hand_side / right_hand_side;
+                        current_result = LHS / RHS;
                         break;
                     default:
                         // We have some problem, Operand not found
                         return false;
                 }
+                LHS = current_result;
+
             }
 
         return true;

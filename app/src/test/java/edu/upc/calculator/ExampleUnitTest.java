@@ -22,7 +22,7 @@ public class ExampleUnitTest {
         test_list.add("2");
         test_list.add("+");
         test_list.add("2");
-        test = calculator_test_object.Parse_list_to_operation(test_list);
+        test = calculator_test_object.Parse_List_To_Result(test_list);
     }
     @Test
     public void vector_str_to_num_result(){
