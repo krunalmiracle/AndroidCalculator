@@ -59,39 +59,34 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="CLEAR"/>
+                        android:text="CLEAR"/>
 
                     <Button
                         android:id="@+id/button_sin"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="SIN" />
+                        android:text="SIN" />
 
                     <Button
                         android:id="@+id/button_cos"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="COS"/>
+                        android:text="COS"/>
 
                     <Button
                         android:id="@+id/button_tan"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="TAN"/>
+                        android:text="TAN"/>
 
                     <Button
                         android:id="@+id/button_rad_deg"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:text="Button"
-                        tools:text="RAD/DEG" />
+                        android:text="RAD/DEG" />
                 </TableRow>
 
                 <TableRow
@@ -104,32 +99,28 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="7"/>
+                        android:text="7"/>
 
                     <Button
                         android:id="@+id/button_8"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="8"/>
+                        android:text="8"/>
 
                     <Button
                         android:id="@+id/button_9"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="9"/>
+                        android:text="9"/>
 
                     <Button
                         android:id="@+id/button_multiply"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="X"/>
+                        android:text="X"/>
                 </TableRow>
 
                 <TableRow
@@ -142,32 +133,28 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="4"/>
+                        android:text="4"/>
 
                     <Button
                         android:id="@+id/button_5"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="5"/>
+                        android:text="5"/>
 
                     <Button
                         android:id="@+id/button_6"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="6"/>
+                        android:text="6"/>
 
                     <Button
                         android:id="@+id/button_subtract"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="-"/>
+                        android:text="-"/>
                 </TableRow>
 
                 <TableRow
@@ -180,32 +167,28 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="1"/>
+                        android:text="1"/>
 
                     <Button
                         android:id="@+id/button_2"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="2"/>
+                        android:text="2"/>
 
                     <Button
                         android:id="@+id/button_3"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="3"/>
+                        android:text="3"/>
 
                     <Button
                         android:id="@+id/button_add"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="+"/>
+                        android:text="+"/>
                 </TableRow>
 
                 <TableRow
@@ -218,32 +201,28 @@
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="+/−"/>
+                        android:text="+/−"/>
 
                     <Button
                         android:id="@+id/button_0"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="0"/>
+                        android:text="0"/>
 
                     <Button
                         android:id="@+id/button_decimal"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="."/>
+                        android:text="."/>
 
                     <Button
                         android:id="@+id/button_equal"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="="/>
+                        android:text= "="/>
                 </TableRow>
             </TableLayout>
 
