@@ -1,7 +1,9 @@
 package edu.upc.calculator;
 
+import java.util.Vector;
+
 public class Calculator implements CalculatorInterface {
-    private double current_result;
+    private double current_result = 0;
     private boolean radians = true;
     Calculator()
     {
@@ -9,23 +11,15 @@ public class Calculator implements CalculatorInterface {
     }
 
     @Override
-    public double Arithmethic_operator(String[] List_of_operations_and_values) {
-
-
-        return 0;
-    }
-
-    @Override
-    public String[] Parse_text_to_list(String text_) {
+    public boolean Parse_list_to_operation(Vector<String> input){
         //Divide the list
             //Search for
-
-
-        return new String[0];
+        
+        return false;
     }
 
     @Override
-    public void Write_to_TextBox(String write_text) {
-
+    public double getResult(){
+        return current_result;
     }
 }

@@ -3,6 +3,8 @@ package edu.upc.calculator;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Vector;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,24 +14,20 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     private Calculator calculator_test_object;
-    private String[] array_of_math_elements;
+    private Vector<String> test_list = new Vector<String>();
     @Before
     public void setUp(){
         calculator_test_object = new Calculator();
-        array_of_math_elements =new String[]{"2","*","2"};
+        test_list.add("2");
+        test_list.add("*");
+        test_list.add("2");
+        calculator_test_object.Parse_list_to_operation(test_list);
     }
     @Test
-    public void check_operations_list_to_result(){
+    public void vector_str_to_num_result(){
 
-        assertEquals(4,calculator_test_object.Arithmethic_operator(new String[]{"2","*","2"}),0);
-        assertEquals(2,calculator_test_object.Arithmethic_operator(new String[]{"2","*"}),0);
-        assertEquals(8,calculator_test_object.Arithmethic_operator(new String[]{"2","+","3","*","2"}),0);;
+        assertEquals(4,calculator_test_object.getResult(),0);
 
     }
-    @Test
-    public void check_conversion_string_to_list(){
-        assertEquals(new String[]{"2","+","3","*","2"},calculator_test_object.Parse_text_to_list("2+3*2"));
 
-        assertEquals(new String[]{"2","+","3","*"},calculator_test_object.Parse_text_to_list("2+3*"));
-    }
 }

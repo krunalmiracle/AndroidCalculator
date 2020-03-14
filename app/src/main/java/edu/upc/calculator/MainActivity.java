@@ -1,5 +1,4 @@
 package edu.upc.calculator;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,7 +10,7 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity {
 
     private Vector<String> math_list = new Vector<String>();
-
+    protected CalculatorInterface _calc;
     private String _text_appended = " ";
     boolean wasLast_Press_Number = false;
     String str_a = "";
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         calculator_display_text   = (TextView) findViewById(R.id.txt_display);
+        this._calc = new Calculator();
     }
 
     public void Append_Text(String Txt,boolean isCurrent_Press_Number) {
@@ -49,10 +49,18 @@ public class MainActivity extends AppCompatActivity {
             //Size is correct of the list a operand b
             text_local = "Solution";
             calculator_display_text.setText(text_local);
+            if(this._calc.Parse_list_to_operation(this.math_list))
+            {
+                double result = this._calc.getResult();
+            }
+            else {
+                text_local = "Error";
+                calculator_display_text.setText(text_local);
+            }
         }
         else
         {
-            text_local = "Error -1";
+            text_local = "Error";
             calculator_display_text.setText(text_local);
         }
         math_list.removeAllElements();
