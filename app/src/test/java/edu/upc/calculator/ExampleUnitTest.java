@@ -105,5 +105,41 @@ public class ExampleUnitTest {
         if (_test){assertEquals(-2,calculator_test_object.get_Result(),0);}
 
     }
-
+    @Test
+    public void TertiaryExpressionSolverTest() {
+        //Simple Case tan2
+        double tmp = 2.0;
+        tmp = Math.toRadians(tmp);
+        String temp_str = "Tan";
+        AddExpression(temp_str, ExpressionLevel.Tertiary);
+        AddExpression(tmp, ExpressionLevel.Nullary);
+        Vector<ExpressionInterface> tmp_vector_tertiary = calculator_test_object.TertiaryExpressionsSolver(expressions_vector);
+        Vector<ExpressionInterface> tmp_vector = calculator_test_object.SecondaryExpressionsSolver(tmp_vector_tertiary);
+        _test = calculator_test_object.PrimaryExpressionsSolver(tmp_vector);
+        if (_test) {
+            assertEquals(Math.tan(tmp), calculator_test_object.get_Result(), 0);
+        }
+        //2nd Case +2*Tan+2
+        tmp = 2.0;
+        double tmp_rad = Math.toRadians(tmp);
+        temp_str = "+";
+        this.expressions_vector.clear();
+        tmp_vector_tertiary.clear();
+        tmp_vector.clear();
+        AddExpression(temp_str, ExpressionLevel.Primary);
+        AddExpression(tmp, ExpressionLevel.Nullary);
+        temp_str="*";
+        AddExpression(temp_str, ExpressionLevel.Secondary);
+        temp_str = "Tan";
+        AddExpression(temp_str, ExpressionLevel.Tertiary);
+        temp_str = "+";
+        AddExpression(temp_str, ExpressionLevel.Primary);
+        AddExpression(tmp_rad, ExpressionLevel.Nullary);
+        tmp_vector_tertiary = calculator_test_object.TertiaryExpressionsSolver(expressions_vector);
+        tmp_vector = calculator_test_object.SecondaryExpressionsSolver(tmp_vector_tertiary);
+        _test = calculator_test_object.PrimaryExpressionsSolver(tmp_vector);
+        if (_test) {
+            assertEquals(2*Math.tan(tmp_rad), calculator_test_object.get_Result(), 0);
+        }
+    }
 }

@@ -41,96 +41,59 @@ public class Calculator implements CalculatorInterface {
         int i=0;
         while(i<ExpressionVector.size())
         {
-            if(ExpressionVector.get(i).get_ExpressionLevel()==ExpressionLevel.Tertiary)
-            {
-                if(ExpressionVector.get(i+1).get_ExpressionLevel()==ExpressionLevel.Nullary)
+            if(ExpressionVector.get(i).get_ExpressionLevel()==ExpressionLevel.Tertiary) {
+                if (ExpressionVector.get(i + 1).get_ExpressionLevel() == ExpressionLevel.Nullary)//If the value after trig function is number,simple case
                 {
-                    //We can directly solve as its just a number now
-                    double tmp_val = 0;double tmp_val2 = (Double) ExpressionVector.get(i+1).get_Value();
-                    if(!this._radians)
-                        tmp_val2 = Math.toRadians((Double) ExpressionVector.get(i+1).get_Value());
-                    switch(ExpressionVector.get(i).get_Value().toString())
+                    double tmp = 0; double RHS = (Double) ExpressionVector.get(i + 1).get_Value();
+                    if(!this._radians){RHS = Math.toRadians(RHS);} //Convert To Radians
+                    switch (ExpressionVector.get(i).get_Value().toString())
                     {
                         case "Tan":
                             // code block
-                            tmp_val = Math.tan(tmp_val2);
-                            break;
-                        case "Sin":
-                            // code block
-                            tmp_val = Math.sin(tmp_val2);
+                            tmp = Math.tan(RHS);
                             break;
                         case "Cos":
                             // code block
-                            tmp_val = Math.cos(tmp_val2);
+                            tmp = Math.cos(RHS);
+                            break;
+                        case "Sin":
+                            // code block
+                            tmp = Math.sin(RHS);
                             break;
                         default:
-                            return null; //Could not parse the correct tertiary
+                            return null; //Could not parse the correct Secondary Operator
                     }
-                    SolvedTertiaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
-                    i++;//As we have jumped one place
+                    SolvedTertiaryExpressions_vector.add(new Expression<Double>(tmp, ExpressionLevel.Nullary));
+                    i++;
                 }
-                else if(ExpressionVector.get(i+1).get_ExpressionLevel()==ExpressionLevel.Primary)
+                else //If the value after trig function is a primary operator (+ or -), than extra step
                 {
-                    if(ExpressionVector.get(i+2).get_ExpressionLevel()==ExpressionLevel.Nullary)
+                    double tmp = 0; double RHS = (Double) ExpressionVector.get(i + 2).get_Value();
+                    if(ExpressionVector.get(i + 1).get_Value().toString().equals("-")){RHS = -RHS;} //Change Sign if negative present before Nullary(Number)
+                    if(!this._radians){RHS = Math.toRadians(RHS);} //Convert To Radians
+                    switch (ExpressionVector.get(i).get_Value().toString())
                     {
-                        if(ExpressionVector.get(i+1).get_Value()=="+")  //For Positive Operand
-                        {
-                            //We can Solve Now directly as its positive nullary
-                            double tmp_val = 0;
-                            double tmp_val2 = (Double) ExpressionVector.get(i + 2).get_Value(); //No need to add anything
-                            if (!this._radians)
-                                tmp_val2 = Math.toRadians((Double) ExpressionVector.get(i + 2).get_Value());
-                            switch (ExpressionVector.get(i).get_Value().toString()) {
-                                case "Tan":
-                                    // code block
-                                    tmp_val = Math.tan(tmp_val2);
-                                    break;
-                                case "Sin":
-                                    // code block
-                                    tmp_val = Math.sin(tmp_val2);
-                                    break;
-                                case "Cos":
-                                    // code block
-                                    tmp_val = Math.cos(tmp_val2);
-                                    break;
-                                default:
-                                    return null; //Could not parse the correct tertiary
-                            }
-                            SolvedTertiaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
-                            i++;i++;//As two places we have jumped for calculation
-                        }
-                        else //For negative operand
-                        {
-                            //We can Solve Now directly as its negative nullary
-                            double tmp_val = 0;
-                            double tmp_val2 = -(Double) ExpressionVector.get(i + 2).get_Value(); //Added Negative
-                            if (!this._radians)
-                                tmp_val2 = Math.toRadians((Double) ExpressionVector.get(i + 2).get_Value());
-                            switch (ExpressionVector.get(i).get_Value().toString()) {
-                                case "Tan":
-                                    // code block
-                                    tmp_val = Math.tan(tmp_val2);
-                                    break;
-                                case "Sin":
-                                    // code block
-                                    tmp_val = Math.sin(tmp_val2);
-                                    break;
-                                case "Cos":
-                                    // code block
-                                    tmp_val = Math.cos(tmp_val2);
-                                    break;
-                                default:
-                                    return null; //Could not parse the correct tertiary
-                            }
-                            SolvedTertiaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
-                            i++;i++;//As two places we have jumped for calculation
-                        }
+                        case "Tan":
+                            // code block
+                            tmp = Math.tan(RHS);
+                            break;
+                        case "Cos":
+                            // code block
+                            tmp = Math.cos(RHS);
+                            break;
+                        case "Sin":
+                            // code block
+                            tmp = Math.sin(RHS);
+                            break;
+                        default:
+                            return null; //Could not parse the correct Secondary Operator
                     }
-                    else{//We have bad expression
-                        return null;}
+                    SolvedTertiaryExpressions_vector.add(new Expression<Double>(tmp, ExpressionLevel.Nullary));
+                    i++;i++;
                 }
             }
-            else{ //A primary Expression or Secondary Expression
+            else //If not Tertiary than add normal
+            {
                 SolvedTertiaryExpressions_vector.add(ExpressionVector.get(i));
             }
             i++;
@@ -138,10 +101,10 @@ public class Calculator implements CalculatorInterface {
         return SolvedTertiaryExpressions_vector;
     }
 
-    @Override
+    @Override //WORKS Secondary Solver
     public Vector<ExpressionInterface> SecondaryExpressionsSolver(Vector<ExpressionInterface> ExpressionVectorTertiarySolved) {
         Vector<ExpressionInterface> SolvedSecondaryExpressions_vector = new Vector<ExpressionInterface>() ;
-        int i=0;
+        int i=0;boolean isGroupedSecondaryExpression = true;
         while(i<ExpressionVectorTertiarySolved.size()-1)
         {
             if(ExpressionVectorTertiarySolved.get(i).get_ExpressionLevel()==ExpressionLevel.Secondary)
@@ -149,8 +112,16 @@ public class Calculator implements CalculatorInterface {
                     if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()==ExpressionLevel.Nullary)
                     {
                         //We can directly solve as its just a number now
-                        double tmp_val = 0;
-                        double LHS = (Double) ExpressionVectorTertiarySolved.get(i - 1).get_Value();
+                        double tmp_val = 0;double LHS = (Double) ExpressionVectorTertiarySolved.get(i - 1).get_Value();
+                        isGroupedSecondaryExpression = false;
+                        if(i>2 ) //We aren't on the first expression
+                        {
+                            if (ExpressionVectorTertiarySolved.get(i - 2).get_ExpressionLevel() == ExpressionLevel.Secondary) //This isn't the first Secondary Operator
+                            {
+                                LHS = (Double) SolvedSecondaryExpressions_vector.get(SolvedSecondaryExpressions_vector.size() - 1).get_Value();
+                                isGroupedSecondaryExpression = true;
+                            }
+                        }
                         double RHS = (Double) ExpressionVectorTertiarySolved.get(i + 1).get_Value();
                         switch (ExpressionVectorTertiarySolved.get(i).get_Value().toString())
                         {
@@ -165,7 +136,15 @@ public class Calculator implements CalculatorInterface {
                             default:
                                 return null; //Could not parse the correct Secondary Operator
                         }
-                        SolvedSecondaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
+                        if(!isGroupedSecondaryExpression) //Not a grouped Second OrderMultiplication,at least not until now
+                        {
+                            SolvedSecondaryExpressions_vector.add(new Expression<Double>(tmp_val, ExpressionLevel.Nullary));
+                        }
+                        else //The Last operation was also Secondary Operation, so we have to substitute with the proper value
+                        {
+                            Expression tmp_expression = new Expression<Double>(tmp_val,ExpressionLevel.Nullary); //Numeric Value
+                            SolvedSecondaryExpressions_vector.setElementAt(tmp_expression, SolvedSecondaryExpressions_vector.size() - 1);
+                        }
                         i++;//Jumped one Places
                     }
             }
@@ -175,6 +154,10 @@ public class Calculator implements CalculatorInterface {
                 i++;
             }
             i++;
+        }
+        if(SolvedSecondaryExpressions_vector.size()==0) //Means that the SolvedTertiary didn't had any second degree Expressions
+        {
+            SolvedSecondaryExpressions_vector.addAll(0,ExpressionVectorTertiarySolved);
         }
         return SolvedSecondaryExpressions_vector;
     }
