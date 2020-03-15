@@ -16,7 +16,7 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity {
 
     Vector<ExpressionInterface> _expressions_vector = new Vector<ExpressionInterface>();
-    protected CalculatorInterface _calc;
+    private CalculatorInterface _calc = new Calculator();
     TextView _calculator_display;
 
     private String _text_Clause = "";
@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _calculator_display = (TextView) findViewById(R.id.txt_display);
-        this._calc = new Calculator();
-
+        _calculator_display = findViewById(R.id.txt_display);
     }
 
     //Adds an expression to vector of Expressions
@@ -151,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void ClickEventMethodButtonEqual(View view) {
         //SOLVE THE ExpressionVector
-        if(_calc.ExpressionVector_To_Result(this._expressions_vector,this.isRad)){
-            _text_Clause = String.valueOf(this._calc.get_Result());
+        if(this._calc.ExpressionVector_To_Result(this._expressions_vector,this.isRad)){
+            double tmp_val = this._calc.get_Result();
+            this._text_Clause = String.valueOf(tmp_val);
         }
         else{
             _text_Clause = "Error";

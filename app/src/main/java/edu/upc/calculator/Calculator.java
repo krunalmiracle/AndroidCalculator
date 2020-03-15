@@ -13,10 +13,10 @@ public class Calculator implements CalculatorInterface {
     public boolean ExpressionVector_To_Result( Vector<ExpressionInterface> expressions_vector,boolean OperateInRadians){
         this._radians = OperateInRadians;
         Vector<ExpressionInterface> SolvedTertiaryExpressions_vector = new Vector<ExpressionInterface>() ;
-        Vector<ExpressionInterface> SolvedSecondaryExpressions_vector;
+        Vector<ExpressionInterface> SolvedSecondaryExpressions_vector = new Vector<ExpressionInterface>();
         //Solve all the Tertiary Expressions from RHS Nullary & Primary Only no Secondary as no parenthesis
-        SolvedSecondaryExpressions_vector = TertiaryExpressionsSolver(expressions_vector);
-        if(SolvedSecondaryExpressions_vector==null )
+        SolvedTertiaryExpressions_vector = TertiaryExpressionsSolver(expressions_vector);
+        if(SolvedTertiaryExpressions_vector==null )
             return false;
         //Solve all the Secondary Expressions using Nullary, Primaries
         SolvedSecondaryExpressions_vector = SecondaryExpressionsSolver(SolvedTertiaryExpressions_vector);
@@ -97,6 +97,7 @@ public class Calculator implements CalculatorInterface {
     @Override //WORKS Secondary Solver
     public Vector<ExpressionInterface> SecondaryExpressionsSolver(Vector<ExpressionInterface> ExpressionVectorTertiarySolved) {
         Vector<ExpressionInterface> SolvedSecondaryExpressions_vector = new Vector<ExpressionInterface>() ;
+        boolean wereNoSecondaryExpression= true;
         int i=0;boolean isGroupedSecondaryExpression = true;
         while(i<ExpressionVectorTertiarySolved.size()-1)
         {
@@ -140,6 +141,7 @@ public class Calculator implements CalculatorInterface {
                         }
                         i++;//Jumped one Places
                     }
+                wereNoSecondaryExpression = false;
             }
             else if(ExpressionVectorTertiarySolved.get(i+1).get_ExpressionLevel()!=ExpressionLevel.Secondary)//A primary Expression or Nullary Expression
             {
@@ -148,7 +150,7 @@ public class Calculator implements CalculatorInterface {
             }
             i++;
         }
-        if(SolvedSecondaryExpressions_vector.size()==0) //Means that the SolvedTertiary didn't had any second degree Expressions
+        if(SolvedSecondaryExpressions_vector.size()==0 ||wereNoSecondaryExpression) //Means that the SolvedTertiary didn't had any second degree Expressions
         {
             SolvedSecondaryExpressions_vector.addAll(0,ExpressionVectorTertiarySolved);
         }
