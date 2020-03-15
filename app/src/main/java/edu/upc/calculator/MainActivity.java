@@ -1,4 +1,5 @@
 package edu.upc.calculator;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -32,39 +34,81 @@ public class MainActivity extends AppCompatActivity {
     //Adds an expression to vector of Expressions
     private void AddExpression(Object Value, ExpressionLevel expressionLevel) {
         //Expression<Double> expression_tmp = new Expression<Double>(22.2,ExpressionLevel.Primary);
-        _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+        //Only Add Expression if mathematically correct else discard
+        if(_expressions_vector.size()==0) //If First Place
+        {
+            if (expressionLevel == ExpressionLevel.Nullary || expressionLevel == ExpressionLevel.Primary ||expressionLevel == ExpressionLevel.Tertiary) {
+                _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+            }
+        }
+        else
+        {
+            if (expressionLevel == ExpressionLevel.Nullary)
+            {
+                _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+            }
+            else if (expressionLevel == ExpressionLevel.Primary) //+ & - Operand
+            {
+                if (_expressions_vector.get(_expressions_vector.size() - 1).get_ExpressionLevel() != ExpressionLevel.Secondary && _expressions_vector.get(_expressions_vector.size() - 1).get_ExpressionLevel() != ExpressionLevel.Primary )//Cannot go after multi or Division
+                {
+                    _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+                }
+            }
+            else if (expressionLevel == ExpressionLevel.Secondary) // * & / Operand
+            {   //Cannot go after Primary(+&-) or Tertiary(Trig Funcs) or Secondary
+                if (_expressions_vector.lastElement().get_ExpressionLevel() != ExpressionLevel.Primary && _expressions_vector.lastElement().get_ExpressionLevel() != ExpressionLevel.Tertiary &&_expressions_vector.lastElement().get_ExpressionLevel() != ExpressionLevel.Secondary)
+                {
+                    _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+                }
+            } else if (expressionLevel == ExpressionLevel.Tertiary) //Trig Operands
+            {   //Cannot go after Nullary (Numbers)
+                if (_expressions_vector.lastElement().get_ExpressionLevel() != ExpressionLevel.Nullary)
+                {
+                    _expressions_vector.add(_expressions_vector.size(), new Expression<Object>(Value, expressionLevel));
+                }
+            }
+        }
     }
 
     private void AppendDigit(String digit){ //Appending Numeric Digit to a Expression or Creating a new Expression
 
-        int last_Element_index = this._expressions_vector.size();
-        if(last_Element_index != 0)
-        {last_Element_index =last_Element_index -1;}
-        Object tmp_value;
-
-        String tst = "";
-            if(this._expressions_vector.size()>0) { //We have a second digit of the same number, so we have to append it in the end
-                tmp_value = this._expressions_vector.get(last_Element_index).get_Value();
-                if (this._expressions_vector.get(last_Element_index).get_ExpressionLevel() == ExpressionLevel.Nullary) {
-                    String tmp_str = this._expressions_vector.lastElement().get_Value().toString() + digit;
-                    double  tmp_double = Double.parseDouble(tmp_str);
-                    Expression tmp_expression = new Expression<Double>(tmp_double,ExpressionLevel.Nullary); //Numeric Value
-                    this._expressions_vector.setElementAt(tmp_expression, last_Element_index);
-                }
-                else //It means we have a number without any preceding Operator or Number
-                { AddExpression(Double.parseDouble(digit), ExpressionLevel.Nullary);}
+        if (_expressions_vector.size()>0)
+        {
+            if(_expressions_vector.lastElement().get_ExpressionLevel()==ExpressionLevel.Nullary)
+            {
+                Double tmp_Double = (Double) _expressions_vector.lastElement().get_Value();
+                DecimalFormat format = new DecimalFormat("0.#");
+                String tmp_str = String.format ("%.0f", tmp_Double);
+                tmp_str = tmp_str + digit;
+                _expressions_vector.setElementAt( new Expression<Double>( Double.parseDouble(tmp_str), ExpressionLevel.Nullary),_expressions_vector.size()-1);
             }
-            else //It means we have a number without any preceding Operator or Number & also first Expression
+            else //It means we have a preceding expression which is not a Number
             {
                 AddExpression(Double.parseDouble(digit), ExpressionLevel.Nullary);
             }
-            UpdateCalculatorDisplay();
+
+        }
+        else //It means we have a number without any preceding Operator or Number & also first Expression
+        {
+            AddExpression(Double.parseDouble(digit), ExpressionLevel.Nullary);
+        }
+        UpdateCalculatorDisplay();
     }
     private void UpdateCalculatorDisplay()
     {   _text_Clause = ""; //_expressions_vector.get(i).get_Value()
+        String tmp_str = "";
         for(int i =0;i<this._expressions_vector.size();i++)
-        {
-                _text_Clause = _text_Clause + this._expressions_vector.get(i).get_Value().toString();
+    {       if(this._expressions_vector.get(i).get_ExpressionLevel().equals(ExpressionLevel.Nullary))
+            {
+                Double tmp_Double = (Double) this._expressions_vector.get(i).get_Value();
+                DecimalFormat format = new DecimalFormat("0.#");
+                tmp_str = String.format("%.0f", tmp_Double);
+            }
+            else
+            {
+                tmp_str = this._expressions_vector.get(i).get_Value().toString();
+            }
+                _text_Clause = _text_Clause + tmp_str;
         }
         this._calculator_display.setText(_text_Clause);
     }
