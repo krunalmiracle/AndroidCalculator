@@ -1,4 +1,4 @@
-#Android Calculator
+### **Android Calculator**
 Author of the program is Krunal Badsiwal with Academic terms of condition from UPC.
 Uses a personal Expression parsing script to determine the result specified in Calculator Interface.
 The Expression Interface is used to determine the validity of Mathemathical Input from the user and 
